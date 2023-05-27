@@ -1,0 +1,50 @@
+{% extends 'header.html' %}
+{% block main %}
+
+<div class="card shadow mt-5">
+    <div class="card-body">
+
+        <h4 class="p-2" style="border-bottom: 2px solid green;">Rejected Request</h4>
+        <div class="container-fluid mt-3">
+            <table id="example" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>S No.</th>
+                    <th>Request No</th>
+                    <th>Name</th>
+                    <th>Mobile No</th>
+                    <th>Email</th>
+                    <th>Sanitization Date</th>
+                    <th>Sanitization Time</th>
+                    <th>Requested Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in requests %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.RequestID}}</td>
+                    <td>{{i.user.first_name}}</td>
+                    <td>{{i.MobileNumber}}</td>
+                    <td>{{i.user.username}}</td>
+                    <td>{{i.DateofSanitization}}</td>
+                    <td>{{i.TimeofSanitization}}</td>
+                    <td>{{i.RequestDate}}</td>
+
+                    {% if i.Status == null %}
+                    <td>Not Update Yet</td>
+                    {% else %}
+                    <td>{{i.Status}}</td>
+                    {% endif %}
+                    <td><a href="{% url 'request_details' i.id %}">View Details</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sanitization Management System</title>
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+  body{
+   background-image: url("/static/assets/img/hero-bg.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+  }
+</style>
+<body>
+ <div class="wrapper">
+    <header>Admin Login</header>
+    <form method="post">
+        {% csrf_token %}
+      <div class="field email">
+        <div class="input-area">
+          <input type="text" name="uname" placeholder="Username">
+          <i class="icon fas fa-envelope"></i>
+          <i class="error error-icon fas fa-exclamation-circle"></i>
+        </div>
+
+      </div>
+      <div class="field password">
+        <div class="input-area">
+          <input type="password" name="pwd" placeholder="Password">
+          <i class="icon fas fa-lock"></i>
+          <i class="error error-icon fas fa-exclamation-circle"></i>
+        </div>
+
+      </div>
+      <input type="submit" value="Login">
+        <br>
+        <br>
+        <a class="btn btn-danger" href="{% url 'index' %}" role="button">Home</a>
+    </form>
+
+  </div>
+
+
+{% if error == "no" %}
+<script>
+    alert('Logged In Successfully');
+    window.location=('{% url 'dashboard' %}');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Invalid Credentials, Please try again');
+</script>
+{% endif %}
+
+</body>
+</html>
+

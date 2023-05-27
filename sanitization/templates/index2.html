@@ -1,0 +1,230 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Sanitization Management System - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+
+    <style>
+        #servicetitleLink:hover{
+        background-color : red;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+        <h1 class="logo me-auto"><a href="{% url 'index' %}"><span style="color: red">S</span>anitization <span style="color: red">M</span>anagement <span style="color: red">S</span>ystem</a></h1>
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="active" href="{% url 'index' %}">Home</a></li>
+                <li><a href="#popular-courses">Services</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <!--<li><a href="{% url 'admin_login' %}">Admin</a></li>-->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <a href="{% url 'track' %}" class="get-started-btn">Track Request</a>
+
+    </div>
+</header><!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <h1>Keeping Hands Clean,<br>Household Cleaning & Sanitizing</h1>
+        <h2>Washing hands can keep you healthy and prevent the spread of respiratory and diarrheal infections from one
+            person to the next.</h2>
+        <!--<a href="{% url 'index' %}" class="btn-get-started">Get Started</a>-->
+    </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+                    <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+                    <h3>Sanitization Related Hygiene</h3>
+                    <p class="fst-italic">
+                        Handwashing is one of the best ways to protect yourself and your family from getting sick. Learn
+                        when and how you should wash your hands to stay healthy.
+                    </p>
+                    <ul>
+                        <li><i class="bi bi-check-circle"></i> Touch your eyes, nose, and mouth with unwashed hands.
+                        </li>
+                        <li><i class="bi bi-check-circle"></i> Prepare or eat food and drinks with unwashed hands.</li>
+                        <li><i class="bi bi-check-circle"></i> Blow your nose, cough, or sneeze into hands and then
+                            touch other people’s hands or common objects.
+                        </li>
+                        <li><i class="bi bi-check-circle"></i> Wet your hands with clean, running water (warm or cold),
+                            turn off the tap, and apply soap..
+                        </li>
+                        <li><i class="bi bi-check-circle"></i> Dry your hands using a clean towel or air dry them.</li>
+                    </ul>
+                    <p>
+                        Washing your hands is easy, and it’s one of the most effective ways to prevent the spread of
+                        germs. Clean hands can stop germs from spreading from one person to another and throughout an
+                        entire community—from your home and workplace to childcare facilities and hospitals.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Popular Courses Section ======= -->
+    <section id="popular-courses" class="courses">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Services</h2>
+                <p>Popular Services</p>
+            </div>
+
+            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                {% for i in services %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="course-item">
+                        <!--<img src="{% static 'assets/img/course-1.jpg' %}" class="img-fluid" alt="..."> -->
+                        {% if i.Image == null %}
+                        <img src="{% static 'images/nopic.jpg' %}" class="img-fluid" alt="..." style="height : 300px">
+                        {% else %}
+                        <img src="{{i.Image.url}}" class="img-fluid" alt="..." style="height : 300px">
+                        {% endif %}
+                        <div class="course-content">
+                            <div class="d-flex justify-content-between align-items-center mb-3" >
+                                <a href="{% url 'servicereq' i.id %}"><h4>{{i.ServiceName}}</h4></a>
+                                <p class="price">{{i.Price}} Rs.</p>
+                            </div>
+                            <p>{{i.ServiceDetail}}</p>
+                        </div>
+                    </div>
+                </div> <!-- End Course Item-->
+                {% endfor %}
+            </div>
+
+        </div>
+    </section><!-- End Popular Courses Section -->
+
+    <!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
+        <div class="container" data-aos="fade-up">
+
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="member">
+                        <img src="{% static 'assets/img/trainers/bib.jpeg' %}" class="img-fluid" alt="">
+                        <div class="member-content">
+                            <h4>Bibin Thomas</h4>
+                            <span>CEO</span>
+                            <p>
+                                A Person who started from 0 to hero
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Trainers Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>Sanitization Management System</h3>
+                    <p>
+
+                        <strong>Phone:</strong> +91 8281702433<br>
+                        <strong>Email:</strong> bibint6@gmail.com<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+        <div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                 <strong><span>Sanitization Management System</span></strong>
+            </div>
+            <div class="credits">
+                Designed by <a href="#">Bibin Thomas</a>
+            </div>
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

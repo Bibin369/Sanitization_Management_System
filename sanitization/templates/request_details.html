@@ -1,0 +1,348 @@
+{% extends 'header.html' %}
+{% block main %}
+
+
+<div class="card shadow mt-5">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Request Details</h5>
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800">Request Details : <span style="color: brown;">{{requests.RequestID}}</span></h1>
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-info">Personal Information</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <tr>
+                                    <th>Full Name</th>
+                                    <td>{{requests.user.first_name}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Email Id</th>
+                                    <td>{{requests.user.username}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Mobile Number</th>
+                                    <td>{{requests.MobileNumber}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Date of Sanitization</th>
+                                    <td>{{requests.DateofSanitization}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Time of Sanitization</th>
+                                    <td>{{requests.TimeofSanitization}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{requests.Address}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>State</th>
+                                    <td>{{requests.State}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>City</th>
+                                    <td>{{requests.City}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Message</th>
+                                    <td>{{requests.Message}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Request Date</th>
+                                    <td>{{requests.RequestDate}}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Information --->
+                <div class="col-lg-6">
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-info">Test Information</h6>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <tr>
+                                    <th>Request Number</th>
+                                    <td>{{requests.RequestID}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Service Name</th>
+                                    <td>{{requests.service.ServiceName}}</td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Service Detail</th>
+                                    <td>{{requests.service.ServiceDetail}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Price</th>
+                                    <td>{{requests.service.Price}} Rs.</td>
+                                </tr>
+
+                                <tr>
+                                    {% if requests.Status == null %}
+
+                                    <th>Status</th>
+                                    <td>Waiting for Update</td>
+
+                                    {% else %}
+                                    <th>Status</th>
+                                    <td>{{requests.Status}}</td>
+                                    {% endif %}
+                                </tr>
+
+                                <tr>
+                                    <th>Request Date</th>
+                                    <td>{{requests.RequestDate}}</td>
+                                </tr>
+
+                                <tr>
+                                    {% if requests.Remark == null %}
+
+                                    <th>Remark</th>
+                                    <td>Not Process yet</td>
+
+                                    {% else %}
+                                    <th>Remark</th>
+                                    <td>{{requests.Remark}}</td>
+                                    {% endif %}
+                                </tr>
+                            </table>
+
+                            {% if not requests.Status %}
+                            <div class="form-group">
+                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                                        data-target="#assignto">Take Action
+                                </button>
+                            </div>
+                            {% else %}
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#takeaction">Take Action
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </form>
+
+            <!-- Test Tracking History --->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary" align="center">Tracking History</h6>
+                        </div>
+                        <div class="card-body">
+
+                            {% if reportcount != 0 %}
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <tr>
+                                    <th>Remark</th>
+                                    <th>Status</th>
+                                    <th>Remark Date</th>
+                                </tr>
+
+                                {% for i in track1 %}
+                                <tr>
+                                    <td>{{i.Remark}}</td>
+                                    <td>{{i.Status}}</td>
+                                    <td>{{i.UpdationDate}}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            {% endif %}
+
+                            {% if reportcount == 0 %}
+                            <h4 align="center" style="color:red"> No Tracking history found </h4>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+        <!-- Assign Modal -->
+        <div id="assignto" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 align="left">Assign to</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="modal-body">
+                                <div class="form-group form-row">
+                                    <label class="col-sm-4">Remark</label>
+                                    <div class="col-sm-8">
+                                        <textarea name="Remark" placeholder="Remark" rows="10" cols="10"
+                                                  class="form-control form-control-sm" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row">
+                                    <label class="col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <select name="Status" class="form-control form-control-sm" required>
+                                            <option value="Team On The Way">Team On The Way</option>
+                                            <option value="Request is inprocess">Request is inprocess</option>
+                                            <option value="Request has been Completed">Request has been Completed
+                                            </option>
+                                            <option value="Request has been rejected">Request has been rejected</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if error == "no" %}
+            <script>
+                  alert('Request Has been updated.');
+                  window.location=('{% url 'request_details' requests.id %}');
+
+            </script>
+            {% endif %}
+
+            {% if error == "yes" %}
+            <script>
+                  alert('Something Went Wrong. Please try again');
+
+            </script>
+            {% endif %}
+        </div>
+
+        <!-- Take Action Modal -->
+
+
+        <div id="takeaction" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 align="left">Take Action</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="form-group form-row">
+                                <label class="col-sm-4">Remark</label>
+                                <div class="col-sm-8">
+                                        <textarea name="Remark" placeholder="Remark" rows="10" cols="10"
+                                                  class="form-control form-control-sm" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-row">
+                                <label class="col-sm-4">Status</label>
+                                <div class="col-sm-8">
+                                    <select name="Status" id="status" class="form-control form-control-sm" required>
+                                        {% if requests.Status == 'Team On The Way' %}
+
+                                        <option value="Request is inprocess">Request is inprocess</option>
+                                        <option value="Request has been Completed">Request has been Completed</option>
+                                        <option value="Request has been rejected">Request has been rejected</option>
+
+                                        {% elif requests.Status == 'Request is inprocess' %}
+                                        <option value="Request has been Completed">Request has been Completed</option>
+                                        <option value="Request has been rejected">Request has been rejected</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          //For report file
+          $('#reportfile').hide();
+          $(document).ready(function(){
+          $('#status').change(function(){
+          if($('#status').val()=='Delivered')
+          {
+          $('#reportfile').show();
+          jQuery("#report").prop('required',true);
+          }
+          else{
+          $('#reportfile').hide();
+          }
+        })})
+
+
+
+
+
+        </script>
+
+        {% if error1 == "no" %}
+        <script>
+                      alert('Status updated successfully');
+
+
+
+        </script>
+        {% endif %}
+        {% if error1 == "yes" %}
+        <script>
+                      alert('Something Went Wrong. Please try again');
+
+
+
+        </script>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
